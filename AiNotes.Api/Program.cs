@@ -15,10 +15,29 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        policy.WithOrigins(
+        var localOrigins = new[]
+        {
             "http://localhost:5173",
             "http://localhost:5174",
-            "https://ainotesclient.vercel.app")
+            "https://ainotesclient.vercel.app"
+        };
+
+        policy.SetIsOriginAllowed(origin =>
+        {
+            if (localOrigins.Contains(origin, StringComparer.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri))
+            {
+                return false;
+            }
+
+            return uri.Scheme == Uri.UriSchemeHttps &&
+                   uri.Host.StartsWith("ainotesclient-", StringComparison.OrdinalIgnoreCase) &&
+                   uri.Host.EndsWith(".vercel.app", StringComparison.OrdinalIgnoreCase);
+        })
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
