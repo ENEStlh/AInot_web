@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.vs/
+**/.vscode/
+**/.git/
+**/.gitignore
+**/*.user
+**/*.suo
+**/*.log
+**/.env
+**/.env.*
+**/appsettings.Development.json
+**/secrets*.json
+AiNotes.Client/
+.git/

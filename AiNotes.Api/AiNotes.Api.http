@@ -1,0 +1,6 @@
+@AiNotes.Api_HostAddress = http://localhost:5240
+
+GET {{AiNotes.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
